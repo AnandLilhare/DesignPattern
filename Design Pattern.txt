@@ -1,0 +1,244 @@
+Design Pattern
+
+1. Creational pattern: 
+These patterns deal with how and when you create your objects. Mastering these patterns will allow you to manage your objects better, adapt well to changes, and write code that is easy to maintain.
+- Singleton
+- Factory Method
+- Abstract Factory
+- Builder
+- Prototype
+
+Factory Method
+- The Factory Method is all about creating objects. But why do we need a method to create objects.
+- This pattern is very useful when creating objects from a configuration. 
+
+Real scenarios to implement factory method:
+1. View Inflation:
+Scenario: Creating different types of views dynamically based on conditions.
+Example: You have a configuration that determines whether to display a standard button or a custom-styled button. Instead of directly creating buttons in your activity or fragment, use a factory to create the appropriate button based on the configuration
+
+2.Logger Implementation:
+Scenario: Selecting a logging library or strategy.
+Example: Depending on the build variant (debug, release), you might want to use different logging implementations. Use a factory to provide the appropriate logger.
+
+3.Network Request Handling:
+Scenario: Creating different network request handlers based on configuration.
+Example: You have different API endpoints for development, staging, and production environments, and each environment has its own set of request headers. Use a factory to create the appropriate network request handler.
+
+
+
+Abstract Factory
+
+- Abstract Factory is a factory of factories. That's all there is to it, really. The factory is a function or class that's able to create other classes. Abstract Factory is a class that creates factories.
+
+- The main usage of Abstract Factory in the real world would probably be frameworks, most notably Spring Framework, which uses the notion of Abstract Factory to create its components out of annotations and XML files
+
+What is the difference between factory pattern and an abstract factory pattern?
+
+The Factory Pattern and Abstract Factory Pattern are both creational design patterns, but they serve different purposes and have distinct implementations. Here are the key differences between the two:
+
+Factory Pattern:
+- Creation of Single Type of Object:
+Factory Pattern: It is used when you have a single type of object to create, and the decision on which class to instantiate is based on runtime conditions.
+Example: Creating different types of buttons (e.g., StandardButton, `CustomButton) based on a configuration.
+
+Single Factory Method:
+Factory Pattern: Typically involves a single factory method in the interface or class responsible for object creation.
+Example: The createButton() method in the ButtonFactory interface.
+
+No Families of Objects:
+Factory Pattern: It doesn't deal with families of related or dependent objects. Each factory method creates a single type of object.
+Example: Creating individual UI components based on conditions.
+
+Abstract Factory Pattern:
+- Creation of Families of Related Objects:
+Abstract Factory Pattern: It is used when you have families of related or dependent objects that need to be created together, ensuring compatibility among the created objects.
+Example: Creating a family of UI components (e.g., buttons, text views) for different themes (e.g., light theme, dark theme).
+
+Multiple Factory Methods:
+-Abstract Factory Pattern: Involves multiple factory methods (each for creating a different type of object) within an abstract factory interface or class.
+Example: The createButton(), createTextView(), and other methods in the ThemeFactory interface.
+
+Object Compatibility:
+-Abstract Factory Pattern: Ensures that the created objects are compatible with each other, as they are part of the same family.
+Example: The buttons, text views, and other components created by the LightThemeFactory are designed to work together cohesively.
+
+Switching between Families:
+Abstract Factory Pattern: It allows you to switch between different families of objects (themes, in the example) without changing the client code that uses these objects.
+Example: Easily switching between a light theme and a dark theme without impacting the rest of the application.
+
+In summary, the Factory Pattern is focused on creating a single type of object based on runtime conditions, while the Abstract Factory Pattern is designed for creating families of related objects, ensuring compatibility among them. The choice between them depends on the specific requirements of your application and the complexity of the object creation process.
+
+
+Builder
+
+-Sometimes, our objects are very simple, and have only one constructor, be it an empty or non-empty one
+- The builder pattern is used to create complex object with consituent parts that must be created in the same order or using a specific alorithm.
+
+
+
+Prototype
+
+- This design pattern is all about customization and creating objects that are similar but slightly different.
+- The whole idea of a prototype is to be able to clone an object easily. There are a number of reasons you may want to do this:
+Creating your object is very expensive. You need to fetch it from the database.
+You create objects that are similar but different from one another, and you don't want to repeat similar parts over and over again.
+
+--------------------------------------------------------------------------------------------
+
+2. Structural Pattern
+- Those patterns help extend the functionality of our objects.
+- The disgne patters are all about Class and object composition.
+
+Following are the Structural Pattern
+- Decorator
+- Adapter
+- Bridge
+- Composite
+- Facade
+- Flyweight
+- Proxy
+
+Decorator:
+Decorator is a structural design pattern that lets you attach new behaviors to objects by placing these objects inside special wrapper objects that contain the behaviors.
+Decorator pattern is:
+- To be able to receive the object we're decorating
+- To keep a reference to it
+- When our Decorator is called, we decide if we would like to change the behavior of the object we're holding, or to delegate the call
+- The Decorator design pattern is widely used in the java.io.* package, with classes such as reader and writer.
+
+  use case in android
+  1. UI Theming:
+Scenario: Dynamically applying themes to UI elements.
+Example: You have a base TextView and want to apply different text styles dynamically. Instead of creating multiple subclasses for each text style, use decorators to add styles like bold, italic, underline, etc. This way, you can compose different styles without creating an explosion of subclasses.
+2. Image Processing:
+Scenario: Dynamically applying filters or effects to images.
+Example: You have an image processing library, and users can apply various filters such as sepia, grayscale, and blur. Use decorators to wrap the original image object with different filter decorators, allowing users to combine filters and see the cumulative effect.
+3. Logging and Analytics:
+Scenario: Enhancing logging or analytics functionality.
+Example: You have a logging or analytics service, and depending on the configuration or runtime conditions, you want to add additional information to logs or analytics events. Use decorators to dynamically add extra details without modifying the existing logging or analytics classes.
+4. Network Requests:
+Scenario: Extending the functionality of network requests dynamically.
+Example: You have a network request manager, and based on specific conditions (e.g., authentication status, debug mode), you want to add additional headers or parameters to the requests. Use decorators to wrap the original request object with decorators that add the required information.
+
+
+Adapter:
+- The main goal of an Adapter, or Wrapper, as it's sometimes called, is to convert one interface to another interface. In the physical world, the best example would be an electrical plug Adapter, or a USB Adapter
+
+- The adapter pattern is used to provide a link between two otherwise incompatiable types by wrapping the "adaptee" with a class that supports the interface required by the client.
+
+- In Kotlin, the Adapter Pattern can be implemented using either class adapters or object adapters
+
+Scenario to implement adapter pattern in android.
+Problem:
+Your Android application uses two different third-party libraries for loading images: Library A and Library B. However, these libraries have different interfaces for loading and displaying images. You want to switch between these libraries based on certain conditions, but doing so would require changing a lot of code throughout your app.
+
+Solution using Adapter Pattern:
+Create an adapter interface (ImageLoaderAdapter) that abstracts the image loading functionality. Then, implement adapter classes (LibraryAAdapter and LibraryBAdapter) that adapt the specific functionality of each library to the common adapter interface. Finally, use the adapter interface throughout your app, allowing you to switch between libraries without changing the rest of the code
+
+Bridge:
+- Unlike some other design patterns we've met, Bridge is less about a smart way to compose objects, and more about guidelines on how not to abuse inheritance. The way it works is actually very simple
+
+- The Bridge Design Pattern is a structural pattern that separates abstraction from implementation, allowing both to evolve independently. It involves creating a bridge interface that acts as a bridge between two hierarchies—abstraction (high-level) and implementation (low-level). This pattern is particularly useful when you want to avoid a permanent binding between an abstraction and its implementation.
+
+Scenario: Media Player Application with Themes
+Problem:
+- You are developing a media player application that allows users to play audio and video files. Users want the flexibility to switch between different themes (light theme and dark theme) without affecting the core functionality of the media player.
+
+Solution using Bridge Pattern:
+- Apply the Bridge Pattern to create a bridge between the media player components (abstraction) and the theme options (implementation). This way, users can customize the application's appearance with different themes while keeping the media player logic separate from the theme details.
+
+In a real-world scenario, users of your media player application can switch between different themes without affecting the core functionality of playing audio or video. The Bridge Pattern helps maintain a clean separation between media player components and theme options, making the application more maintainable and extensible.
+
+Composite:
+Having said that, we can start analyzing this pattern. It may look a bit strange to have a Composite design pattern. After all, aren't all Structural Patterns about composing objects?
+
+Much like in the case of the Bridge design pattern, the name may not reflect its true benefits.
+
+Facade:
+In different implementations and approaches, Facade may resemble either an Adapter or an Abstract Factory.
+1. When we think about simplifying, we usually think of the Adapter design pattern
+2. When we think about the family of classes, we usually think of an Abstract Factory
+
+Flyweight:
+Flyweight is an object without any state. The name comes from being very light.
+
+Proxy:
+This is one misbehaving design pattern. Much like Decorator, it extends object functionality. But, unlike Decorator, which always does at it's told, having a Proxy may mean that when asked, the object will do something totally different instead.
+
+
+Behavioral Patterns 
+
+Behavioral patterns in the context of software design refer to a category of design patterns that focus on the interaction and communication between objects in a system. These patterns are concerned with the delegation of responsibilities between objects and how they collaborate to achieve a specific behavior. Behavioral patterns are often used to improve the flexibility and maintainability of software by promoting loose coupling and reusability.
+
+Some common behavioral design patterns include:
+
+1.Observer Pattern:
+- Defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
+Example: Event handling systems in graphical user interfaces.
+
+Here are some real-life scenarios where the Observer Pattern can be applied in Android:
+
+1. UI Updates based on Data Changes:
+Suppose you have a data source (e.g., a database, network request, or sensor data) that frequently changes. Activities, Fragments, or custom UI components can register as observers to be notified when the underlying data changes. This helps in keeping the UI in sync with the latest data.
+
+2. Event Handling:
+Events such as button clicks, touch events, or system events can be observed by interested components. For example, multiple UI components might be interested in changes to a button click, and they can register as observers to be notified when the button is clicked.
+
+3. Messaging Systems:
+In a messaging app, when a new message is received, multiple UI components (e.g., chat fragments, notification panels) may need to be updated. The Observer Pattern can be used to notify these components of the new message, allowing them to update accordingly.
+
+4.Location Updates:
+If your app involves location-based services, different parts of the app may need to be aware of changes in the user's location. Observers can be used to notify relevant components whenever the location is updated.
+
+5.Settings Changes:
+Consider an app with user settings that affect the behavior and appearance of the app. Various UI elements might need to update when these settings change. The Observer Pattern can help in broadcasting these changes to interested components.
+
+6. Data Synchronization:
+In scenarios where data needs to be synchronized across different parts of the app or with a server, the Observer Pattern can be used to notify relevant components when the synchronization process is complete or when there are new updates.
+
+
+2. Strategy Pattern:
+- Defines a family of algorithms, encapsulates each one, and makes them interchangeable. Strategy lets the algorithm vary independently from clients that use it.
+
+- The strategy pattern is used to create an interchangeable familiy of algorithms from which the required process is chosen at run time.
+
+Example: Sorting algorithms in a sorting system.
+
+Real life example:
+Image Compression in a Social Media App:
+In a social media app, users upload images to share with their friends. To optimize the user experience and reduce bandwidth usage, the app may offer different strategies for compressing images before uploading.
+
+
+
+3. Command Pattern:
+Encapsulates a request as an object, thereby allowing for parameterization of clients with different requests, queuing of requests, and logging of the parameters.
+Example: GUI buttons and menu items that trigger actions.
+
+
+
+4. Chain of Responsibility Pattern:
+Passes the request along a chain of handlers. Upon receiving a request, each handler decides either to process the request or to pass it to the next handler in the chain.
+Example: Event handling in a user interface, where multiple objects can handle the same event.
+
+5. State Pattern:
+- Allows an object to alter its behavior when its internal state changes. The object will appear to change its class.
+- The state pattern is used to alter the behavior of an object as its internal state change. Tha pattern allow the class for an object to apparently change at run time.
+Example: A context object that can switch between different states, affecting its behavior.
+
+Real life Example
+Task Management App:
+In a task management app, each task can go through states like "To Do," "In Progress," and "Done." The State Pattern can be applied to encapsulate the behavior associated with each state.
+
+
+6. Interpreter Pattern:
+Defines a grammar for interpreting the sentences in a language and provides an interpreter to interpret the sentences.
+Example: Compilers and interpreters that parse and execute a programming language.
+
+7. Visitor Pattern:
+Represents an operation to be performed on the elements of an object structure. It lets you define a new operation without changing the classes of the elements on which it operates.
+Example: Operations on a tree-like data structure.
+
+
+
+
